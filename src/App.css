@@ -53,6 +53,8 @@
   height: 100%;
   width: 100%;
   color: #4e3f44 !important;
+  padding-left: 10px;
+  background-color: #FFF;
 }
 
 .sub-menu-li:last-child {
@@ -70,10 +72,11 @@
 
 .sub-menu-options {
   position: absolute;
-  width: 100px;
+  width: 120px;
   height: 40px;
   background-color: #FFFFFF;
   color: #4e3f44 !important;
+  line-height: 35px;
 }
 
 .options-hover:hover .header-nav-div, .header-nav-link:hover {
@@ -87,7 +90,7 @@
   left: 100%;
   width: 100px;
   padding: 2px;
-  margin-left: 20px;
+  margin-left: 9px;
 }
 
 .sub-menu-div {
@@ -98,6 +101,7 @@
   min-width: 120px;
   align-items: center;
   color: #4e3f44 !important;
+  padding-left: 10px;
 }
 
 .grand-child-link:last-child {
