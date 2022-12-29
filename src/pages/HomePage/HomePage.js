@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../components/Header/Header';
 import styles from './HomePage.module.scss';
 
-const HomePage = () => (
+const HomePage = (props) => (
   <div className={styles.HomePage} data-testid="HomePage">
-    HomePage Component
+    <Header/>
   </div>
 );
 
