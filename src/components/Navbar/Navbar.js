@@ -1,9 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { CONSTANTS } from '../../global/i18n/constants';
 
 const NavigationDesktop = (props) => {
   const { navLinksData } = props;
   const [showSubMenu, setShowSubMenu] = useState([]);
+  const [menuData, setMenuData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mItem = Object.keys(navLinksData[0]);
+    if (!menuData.length) {
+      mItem.forEach(specItem => {
+        let tmpMenuData = menuData;
+        if (navLinksData[0][specItem].length > 0) {
+          tmpMenuData.push({ id: (Math.floor(Math.random() * 100000) + 1), name: specItem, children: getSubmenuItems(navLinksData[0][specItem], specItem) })
+        } else {
+          tmpMenuData.push({ id: (Math.floor(Math.random() * 100000) + 1), name: specItem });
+        }
+        setMenuData(tmpMenuData)
+      });
+    }
+    setLoading(false)
+  }, [menuData]);
+
+  const getSubmenuItems = (sItems, specItemName) => {
+    let sItemArray = [];
+    let sIar = Object.keys(sItems[0]);
+    sIar.forEach(specItemFor => {
+      sItemArray.push({ id: (Math.floor(Math.random() * 100000) + 1), name: specItemFor });
+    });
+    return sItemArray;
+  }
 
   const variants = {
     open: { opacity: 1, x: 0 },
@@ -12,7 +40,6 @@ const NavigationDesktop = (props) => {
 
   const subMenuOnMouseEnterHandler = (subMenuId) => {
     setShowSubMenu((prev) => {
-      console.log("running");
       let arr = [...prev];
       arr[subMenuId] = true;
       return arr;
@@ -20,22 +47,21 @@ const NavigationDesktop = (props) => {
   };
   const subMenuOnMouseLeaveHandler = (subMenuId) => {
     setShowSubMenu((prev) => {
-      console.log("running");
       let arr = [...prev];
       arr[subMenuId] = false;
       return arr;
     });
   };
 
-  return (
+  return (!loading &&
     <nav className="container-nav">
       <ul className='main-nav'>
-        {navLinksData.map((el, i) => {
+        {menuData.map((el, i) => {
           if (!el.children) {
             return (
               <li key={el.id}>
                 <a href='#' className='header-nav-link'>
-                  <span>{el.name}</span>
+                  <span>{CONSTANTS[el.name] ? CONSTANTS[el.name] : CONSTANTS.not_name}</span>
                 </a>
               </li>
             );
@@ -49,9 +75,11 @@ const NavigationDesktop = (props) => {
               className='header-nav-options options-hover'
             >
               <div className='header-nav-div'>
-                <span>{el.name}</span>
+                <span>{CONSTANTS[el.name] ? CONSTANTS[el.name] : CONSTANTS.not_name}</span>
               </div>
               <motion.ul
+                variants={variants}
+                animate={showSubMenu[el.id] ? "open" : "closed"}
                 className='header-nav-ul'
               >
                 {showSubMenu[el.id] &&
@@ -64,7 +92,7 @@ const NavigationDesktop = (props) => {
                             className='sub-menu-link'
                             style={{ textDecoration: "none" }}
                           >
-                            <span>{ele.name}</span>
+                            <span>{CONSTANTS[ele.name] ? CONSTANTS[ele.name] : CONSTANTS.not_name}</span>
                           </a>
                         </li>
                       );
@@ -78,8 +106,8 @@ const NavigationDesktop = (props) => {
                         className='sub-menu-options sub-menu-hover'
                       >
                         <div className='sub-menu-div'>
-                          <span>{ele.name}</span>
-                          <span className='arrow'>{"  >"}</span>
+                          <span>{CONSTANTS[ele.name] ? CONSTANTS[ele.name] : CONSTANTS.not_name}</span>
+                          <span className='arrow'>{"-->"}</span>
                         </div>
                         <motion.ul
                           variants={variants}
@@ -91,7 +119,7 @@ const NavigationDesktop = (props) => {
                               return (
                                 <li key={elem.id} className='grand-child-link'>
                                   <a href='#'>
-                                    <span>{elem.name}</span>
+                                    <span>{CONSTANTS[elem.name] ? CONSTANTS[elem.name] : CONSTANTS.not_name}</span>
                                   </a>
                                 </li>
                               );
