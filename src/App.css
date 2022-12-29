@@ -4,11 +4,11 @@
   text-decoration: none;
   height: 100%;
   display: flex;
-  width: 80px;
+  width: 120px;
   height: 40px;
   justify-content: center;
   border-bottom: none;
-  color: #4e3f44 !important;
+  color: #4e3f44 !important;  
 }
 
 .header-nav-link span {
@@ -28,7 +28,6 @@
   height: 100%;
   display: flex;
   width: 100%;
-  justify-content: center;
   border-bottom: none;
   background-color: #FFFFFF;
 }
@@ -66,6 +65,7 @@
   list-style: none;
   width: 120px;
   margin-left: -50px;
+  margin-top: 2px;
 }
 
 .sub-menu-options {
@@ -76,7 +76,7 @@
   color: #4e3f44 !important;
 }
 
-.options-hover:hover .header-nav-div {
+.options-hover:hover .header-nav-div, .header-nav-link:hover {
   border-bottom: 3px solid #1600a2;
 }
 
