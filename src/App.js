@@ -1,4 +1,5 @@
 import Home from "./pages/HomePage/HomePage.lazy";
+import './App.css'
 import {
   BrowserRouter,
   Routes,
