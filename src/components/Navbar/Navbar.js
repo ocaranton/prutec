@@ -8,21 +8,34 @@ const NavigationDesktop = (props) => {
   const [menuData, setMenuData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let mItem = Object.keys(navLinksData[0]);
-    if (!menuData.length) {
-      mItem.forEach(specItem => {
-        let tmpMenuData = menuData;
-        if (navLinksData[0][specItem].length > 0) {
-          tmpMenuData.push({ id: (Math.floor(Math.random() * 100000) + 1), name: specItem, children: getSubmenuItems(navLinksData[0][specItem], specItem) })
+  const validateItemMenu = (item) => {
+    let sMItem = [];
+    item.forEach(sItem => {
+      for (const [k, v] of Object.entries(sItem)) {
+        if (v.length > 0) {
+          sMItem.push({ id: (Math.floor(Math.random() * 100000) + 1), name: k, children: validateItemMenu(v) })
         } else {
-          tmpMenuData.push({ id: (Math.floor(Math.random() * 100000) + 1), name: specItem });
+          sMItem.push({ id: (Math.floor(Math.random() * 100000) + 1), name: k })
         }
-        setMenuData(tmpMenuData)
-      });
-    }
+      }
+    })
+    return sMItem;
+  }
+
+  useEffect(() => {
+    let tmpMenu = [];
+    navLinksData.forEach(mItem => {
+      for (const [k, v] of Object.entries(mItem)) {
+        if (v.length > 0) {
+          tmpMenu.push({ id: (Math.floor(Math.random() * 100000) + 1), name: k, children: validateItemMenu(v) });
+        } else {
+          tmpMenu.push({ id: (Math.floor(Math.random() * 100000) + 1), name: k });
+        }
+      }
+      setMenuData(tmpMenu)
+    })
     setLoading(false)
-  }, [menuData]);
+  }, []);
 
   const getSubmenuItems = (sItems, specItemName) => {
     let sItemArray = [];
