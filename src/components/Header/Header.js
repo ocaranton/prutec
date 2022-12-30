@@ -8,7 +8,6 @@ const Header = ({ title, username }) => {
   const [arrowActive, setArrowActive] = useState(false);
 
   const changeArrow = () => {
-    console.log({ arrowActive })
     setArrowActive(!arrowActive);
   }
 
