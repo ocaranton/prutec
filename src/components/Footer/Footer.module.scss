@@ -1,0 +1,19 @@
+.Footer {
+    background-color: #1600a2;
+    border-top: 3px solid #00dcc9;
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+}
+
+.FooterContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    color: #fff;
+
+    > span {
+        line-height: 60px;
+        font-size: 14px;
+    }
+}
